@@ -11,4 +11,10 @@ add_subdirectory(${freeglut_directory})
 
 add_executable(${PROJECT_NAME} src/main.cpp)
 target_include_directories(${PROJECT_NAME} PRIVATE ${freeglut_directory}/include)
-target_link_libraries(${PROJECT_NAME} freeglut GLU)
+target_link_libraries(${PROJECT_NAME} freeglut)
+
+if(WIN32)
+  target_link_libraries(${PROJECT_NAME} glu32)
+elseif(UNIX AND NOT APPLE)
+  target_link_libraries(${PROJECT_NAME} GLU)
+endif()
