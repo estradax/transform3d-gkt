@@ -6,6 +6,8 @@
 
 #include <GL/glut.h>
 
+// class Matrix untuk membuat matrix
+// dan untuk melakukan fungsi perkalian dan pertambahan
 class Matrix {
 public:
   using MatrixType = std::vector<std::vector<float>>;
@@ -123,12 +125,17 @@ void Matrix::Print() const {
   }
 }
 
+// Matrix translasi
 Matrix M{{
   {1, 0, 0},
   {0, 1, 0},
   {0, 0, 1}
 }};
 
+// Translasi ke 
+// X => 5
+// Y => 0
+// Z => 0
 Matrix Tr{{
   {5, 0, 0}
 }};
@@ -136,6 +143,7 @@ Matrix Tr{{
 #define RECT_SIZE 4
 #define LINE_SIZE 2
 
+// XYZ untuk persegi depan
 Matrix front[RECT_SIZE] = {
   {{{-2, 2, 0}}},
   {{{2, 2, 0}}},
@@ -143,6 +151,7 @@ Matrix front[RECT_SIZE] = {
   {{{-2, -2, 0}}},
 };
 
+// XYZ untuk persegi belakang
 Matrix back[RECT_SIZE] = {
   {{{-2, 2, -5}}},
   {{{2, 2, -5}}},
@@ -150,26 +159,31 @@ Matrix back[RECT_SIZE] = {
   {{{-2, -2, -5}}},
 };
 
+// XYZ garis penghubung depan dan belakang
 Matrix top_left_line[LINE_SIZE] = {
   {{{-2, 2, 0}}},
   {{{-2, 2, -5}}},
 };
 
+// XYZ garis penghubung depan dan belakang
 Matrix top_right_line[LINE_SIZE] = {
   {{{2, 2, 0}}},
   {{{2, 2, -5}}},
 };
 
+// XYZ garis penghubung depan dan belakang
 Matrix bottom_left_line[LINE_SIZE] = {
   {{{-2, -2, 0}}},
   {{{-2, -2, -5}}},
 };
 
+// XYZ garis penghubung depan dan belakang
 Matrix bottom_right_line[LINE_SIZE] = {
   {{{2, -2, 0}}},
   {{{2, -2, -5}}},
 };
 
+// Variable untuk menampung matrix hasil translasi
 Matrix front_translated[RECT_SIZE];
 Matrix back_translated[RECT_SIZE];
 Matrix top_left_line_translated[LINE_SIZE];
@@ -177,8 +191,9 @@ Matrix top_right_line_translated[LINE_SIZE];
 Matrix bottom_left_line_translated[LINE_SIZE];
 Matrix bottom_right_line_translated[LINE_SIZE];
 
+// Matrix rotation
 Matrix M_rot;
-float angle = 0;
+float angle = 0; // 360
 
 void AnimateTranslate(Matrix* from, Matrix* to, std::size_t size) {
   for (std::size_t i = 0; i < size; i++) {
@@ -225,6 +240,7 @@ Matrix MatrixRotationZ(float angle) {
 }
 
 void InitGL() {
+  // init matrix rotasi dengan matrix rotasi z
   M_rot = MatrixRotationZ(angle); 
 
   for (std::size_t i = 0; i < RECT_SIZE; i++) {
